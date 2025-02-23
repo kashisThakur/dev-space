@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  dev-environment:
+    build:
+      context: .
+      args:
+        USERNAME: dev
+        USER_UID: ${UID:-1001}
+        USER_GID: ${GID:-1001}
+    container_name: universal-dev
+    volumes:
+      - ./workspace:/workspace
+      - dev-home:/home/dev
+    environment:
+      - TERM=xterm-256color
+      - COLORTERM=truecolor
+    stdin_open: true
+    tty: true
+    ports:
+      - "8000-9000:8000-9000"
+
+volumes:
+  dev-home:
